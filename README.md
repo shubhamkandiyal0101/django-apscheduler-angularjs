@@ -36,7 +36,10 @@
 * Toastr
 
 #### **Project Screenshots**
-! [Set Email Content](django-apscheduler-angularjs/projectScreenshots/after_login_screen_set_email_content.png)
+
+__NOTE__: If Screenshots is Not Possible Below, Then You can Navigate to __projectScreenshots__ Folder 
+
+! [Set Email Content](https://raw.githubusercontent.com/shubhamkandiyal0101/django-apscheduler-angularjs/master/projectScreenshots/after_login_screen_set_email_content.png)
 
 #### **Developer**
 Shubham Kandiyal (https://github.com/shubhamkandiyal0101)
