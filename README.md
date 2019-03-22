@@ -39,8 +39,6 @@
 
 __NOTE__: If Screenshots is Not Possible Below, Then You can Navigate to __projectScreenshots__ Folder 
 
-! [Set Email Content](https://raw.githubusercontent.com/shubhamkandiyal0101/django-apscheduler-angularjs/master/projectScreenshots/after_login_screen_set_email_content.png)
-
 #### **Developer**
 Shubham Kandiyal (https://github.com/shubhamkandiyal0101)
 I am looking for oportunity to work in Open Source Projects and want to do some contribution to Open Source Projects. 
