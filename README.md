@@ -12,4 +12,32 @@
 3. Install all requirements from **requirements.txt** file (__pip install -R requirements.txt__)
 4. Finally Get Started with Run Project (__python manage.py runserver__)
 
-##### **Functionality**
+##### **Project Functionality**
+1. Signup and Login User
+2. Save Email Content to Database to Schedule it Later (like its include subject, content and email recipients)
+3. Schedule Email by APScheduler Cron Job (by Day, by Hour, by Minute, by Month and many more things)
+4. View Email Report Details
+5. Refresh or Reload All Email Reports Data from Database
+6. Delete Email Report
+7. Pause APScheduler Cron Job
+8. Resume APScheduler Cron Job
+8. Remove or Delete APScheduler Cron Job
+9. Refresh or Reload All APScheduler Cron Job from Database
+10. Send Email in Bulk Immediately without Schedule and Save to Database
+
+##### **Technologies Used**
+* Python
+* Django 
+* APScheduler
+* AngularJS 
+* JQuery
+* BootStrap
+* Tagify
+* Toastr
+
+#### **Project Screenshots**
+! [Set Email Content](django-apscheduler-angularjs/projectScreenshots/after_login_screen_set_email_content.png)
+
+#### **Developer**
+Shubham Kandiyal (https://github.com/shubhamkandiyal0101)
+I am looking for oportunity to work in Open Source Projects and want to do some contribution to Open Source Projects. 
