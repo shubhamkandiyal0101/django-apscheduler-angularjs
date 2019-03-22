@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login/Sign up</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/loginSignup.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/library/toastr.min.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+</head>
+<body ng-app="loginApp" ng-controller="loginController" ng-cloak>
+  <div class="container">
+    <div class="backbox">
+      <div class="loginMsg">
+        <div class="textcontent">
+          <p class="title">Don't have an account?</p>
+          <p>Sign up to save all your graph.</p>
+          <button id="switch1">Sign Up</button>
+        </div>
+      </div>
+      <div class="signupMsg visibility">
+        <div class="textcontent">
+          <p class="title">Have an account?</p>
+          <p>Log in to see all your collection.</p>
+          <button id="switch2">LOG IN</button>
+        </div>
+      </div>
+    </div>
+    <!-- backbox -->
+
+    <div class="frontbox">
+      <div class="login">
+        <h2>LOG IN</h2>
+        <div class="inputbox">
+          <input type="text" name="email" placeholder="  EMAIL" ng-model="loginEmail">
+          <input type="password" name="password" placeholder="  PASSWORD" ng-model="loginPassword">
+        </div>
+        <!-- <p>FORGET PASSWORD?</p> -->
+        <button ng-click="userSignin()">LOG IN</button>
+      </div>
+
+      <div class="signup hide">
+        <h2>SIGN UP</h2>
+        <div class="inputbox">
+          <input type="text" name="fullname" placeholder="  FULLNAME" ng-model="signupFullname">
+          <input type="text" name="email" placeholder="  EMAIL" ng-model="signupEmail">
+          <input type="password" name="password" placeholder="  PASSWORD" ng-model="signupPassword">
+        </div>
+        <button ng-click="userSignup()">SIGN UP</button>
+      </div>
+
+    </div>
+    <!-- frontbox -->
+  </div>
+</body>
+  <script type="text/javascript" src="{% static 'js/library/jQuery2.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/loginSignup.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/library/angularjs169.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/library/toastr.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'controller/loginController.js' %}"></script>
+
+</html>
+<!-- https://github.com/CodeSeven/toastr -->
+<!-- https://www.freelancer.com/projects/php/wordpress-developer-pagebuilder/?w=f -->

@@ -1,0 +1,238 @@
+{% extends 'render/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+{% verbatim %}
+<div class="container" ng-controller="apschedulerDashboardApp">
+  	<div style="height: 90px;">
+	  <h2 style="text-align: center;"><i><b>Django APScheduler with AngularJS</b></i></h2>
+	  <h4 style="text-align: center;"><i><b>Timezone: GMT</b></i></h2>
+	</div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#emailContent">Set E-Mail Content</a></li>
+    <li><a data-toggle="tab" href="#scheduleEmail">Schedule Email</a></li>
+    <li><a data-toggle="tab" href="#editSchedule">Edit Schedule</a></li>
+    <li><a data-toggle="tab" href="#sendEmailImmediately">Send Bulk E-Mail Immediataly </a></li>
+  </ul>
+
+  <div class="tab-content">
+  	<!-- set email content tab -->
+    <div id="emailContent" class="tab-pane fade in active">
+	    <div style="width: 70%; margin-left: auto; margin-right: auto;">
+	      		<h3 style="text-align: center;">Set E-Mail Content </h3>
+	      		<form style="margin-top: 15px;">
+	      			<div class="col-md-12">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Title or Report Name
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<input type="text" name="reportName" ng-model="reportName" class="form-control">
+			      		</div>
+	      			</div>
+
+	      			<div class="col-md-12" style="margin-top: 10px;">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Subject
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<input type="text" name="emailSubject" ng-model="emailSubject" class="form-control">
+			      		</div>
+	      			</div>
+
+	      			<div class="col-md-12" style="margin-top: 10px;">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Content
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<textarea name="emailContent" ng-model="emailContent" class="form-control" rows="5" style="resize: none;"></textarea>
+			      		</div>
+	      			</div>
+
+	      			<div class="col-md-12" style="margin-top: 10px;">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Sent To
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<input name='emailTags' ng-model="emailTags" class='some_class_name' placeholder='Multiple Email Address. Separated by Comma (,)' pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'>
+			      		</div>
+	      			</div>
+	      			<div class="col-md-12" style="margin-top: 20px; text-align: center;">
+	      				<button class="btn btn-primary" ng-click="saveEmailContent()">Save Email Content</button>
+	      			</div>
+
+	      		</form>
+	    </div>
+	</div>
+	<!-- ends here ~ set email content tab -->
+
+	<!-- set schedule email -->
+    <div id="scheduleEmail" class="tab-pane fade">
+
+
+    	<!-- model content -->
+		  <div class="modal fade" id="viewEmailReport" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title" style="text-align: center;"> <b>Report Name:</b> <span ng-bind="selectedEmailAssignReportData.reportName"></span></h4>
+		        </div>
+		        <div class="modal-body">
+		          <p><b>Email Subject:</b> <span ng-bind="selectedEmailAssignReportData.subject"></span></p>
+		          <p><b>Email Content:</b> <span ng-bind="selectedEmailAssignReportData.content"></span></p>
+		          <p><b>Email Recipients:</b> <span ng-bind="selectedEmailAssignReportData.email"></span></p>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+    	<!-- ends here ~ model content -->
+        
+    	<!-- set schedule email content -->
+
+    	<div class="col-md-12" style="margin-top: 15px; text-align: center; padding: 10px;">
+			<div class="col-md-6">
+				<button class="btn btn-warning" ng-click="fetchAllEmailReports()">Refresh Data</button>					
+			</div>
+			<div class="col-md-6">
+				<button class="btn btn-danger" ng-click="deleteSelectedEmailReport(selectedEmailAssignReportData.reportName)">Delete Report</button>
+			</div>
+		</div>
+
+        <div style="width: 70%; margin-left: auto; margin-right: auto;">
+	      	<h3 style="text-align: center;">Schedule Email by Report or Email Name </h3>
+		    <div class="col-md-12" style="margin-top: 15px;">
+		        <div class="cronTabsUi" style="text-align: center;"></div>
+				<input class="cronTabsUi-input form-control" style="margin-top: 15px;"/>
+				<span style="display: none;" ng-init="showCronTabsUi()"></span>
+				<span style="display: none;" ng-init="fetchAllEmailReports()"></span>
+			</div>
+			<div class="col-md-12" style="margin-top: 15px; text-align: center; border: solid 2px rebeccapurple; border-radius: 5px; padding: 10px;">
+				<div class="col-md-4">
+					<!-- <select ng-options="reportName in emailAssignReportData"></select>					 -->
+					<select ng-model="selectedEmailAssignReportData" ng-options="item.reportName for item in emailAssignReportData" class="form-control"></select>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#viewEmailReport">View</button>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-warning" ng-click="scheduleEmailFunc()">Schedule Email</button>
+				</div>
+			</div>
+			
+		</div>
+		<!-- ends here ~ set schedule email content -->
+
+    </div>
+    <!-- ends here ~ set schedule email -->
+
+    <!-- div for cancel schedule -->
+    <div id="editSchedule" class="tab-pane fade">
+      <h3>Edit Email Schedule</h3>
+      <div class="col-md-12" style="background: black; color: white; padding: 14px; border-radius: 100px;">
+      	<div class="col-md-3">
+      		<b>Report Name:</b> <span ng-bind="selectedEmailCronSchedule.cronReportName"></span>
+      	</div>
+      	<div class="col-md-3">
+      		<b>Cron Value:</b> <span ng-bind="selectedEmailCronSchedule.cronValue"></span>
+      	</div>
+      	<div class="col-md-3">
+      		<b>Cron ID:</b> <span ng-bind="selectedEmailCronSchedule.cronId"></span>
+      	</div>
+      	<div class="col-md-3">
+      		<b>Cron Status:</b> <span ng-bind="selectedEmailCronSchedule.cronStatus"></span>
+      	</div>
+      </div>
+     <div class="col-md-12" style="margin-top: 20px;">
+     	<select ng-model="selectedEmailCronSchedule" ng-options="item.cronId for item in emailCronSchedule" class="form-control" style="margin-right: auto;margin-left: auto; width: 30%;"></select>
+     </div>
+      <div class="col-md-12" style="padding: 40px 200px 40px 200px">
+      	<div class="col-md-4">
+      		<!-- for pause job -->
+      		<button class="btn btn-warning" ng-click="pauseDeleteSchedule(selectedEmailCronSchedule, 'pauseCronSchedule')" ng-show="selectedEmailCronSchedule.cronStatus">Pause Email Schedule</button>
+      		<!-- ends here ~ for pause job -->
+
+      		<!-- for resume job -->
+      		<button class="btn btn-warning" ng-click="pauseDeleteSchedule(selectedEmailCronSchedule, 'resumeCronSchedule')" ng-show="!selectedEmailCronSchedule.cronStatus">Resume Email Schedule</button>
+      		<!-- ends here ~ for resume job -->
+      	</div>
+      	<div class="col-md-4">
+      		<button class="btn btn-primary" ng-click="getAllScheduleEmail()">Refresh Data</button>
+      	</div>
+      	<div class="col-md-4">
+      		<button class="btn btn-danger"ng-click="pauseDeleteSchedule(selectedEmailCronSchedule, 'deleteCronSchedule')">Remove Email Schedule</button>
+      	</div>
+      </div>
+      <span ng-init="getAllScheduleEmail()" style="display: none"></span>
+    </div>
+    <!-- ends here ~ div for cancel schedule -->
+
+    <!-- send email immediately tab -->
+    <div id="sendEmailImmediately" class="tab-pane fade">
+	    <div style="width: 70%; margin-left: auto; margin-right: auto;">
+	      		<h3 style="text-align: center;">Send Bulk E-Mail Immediately </h3>
+	      		<form style="margin-top: 15px;">
+	      			<div class="col-md-12">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Subject
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<input type="text" name="instantEmailSubject" ng-model="instantEmailSubject" class="form-control">
+			      		</div>
+	      			</div>
+
+	      			<div class="col-md-12" style="margin-top: 10px;">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Content
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<textarea name="instantEmailContent" ng-model="instantEmailContent" class="form-control" rows="5" style="resize: none;"></textarea>
+			      		</div>
+	      			</div>
+
+	      			<div class="col-md-12" style="margin-top: 10px;">
+	      				<div class="col-md-4">
+			      			<label>
+			      				Sent To
+			      			</label>
+			      		</div>
+			      		<div class="col-md-8">
+			      			<input name='instantEmailTags' ng-model="instantEmailTags" class='some_class_name' placeholder='Multiple Email Address. Separated by Comma (,)' pattern='^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$'>
+			      		</div>
+	      			</div>
+	      			<div class="col-md-12" style="margin-top: 20px; text-align: center;">
+	      				<button class="btn btn-primary" ng-click="instantBulkEmailSendFunc()">Send Email</button>
+	      			</div>
+
+	      		</form>
+	    </div>
+	</div>
+    <!-- ends here ~ send email immediately tab -->
+  </div>
+</div>
+{% endverbatim %}
+{% endblock %}
+
+{% block local_controller %}
+ <script type="text/javascript" src="{% static 'controller/apschedulerController.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/tagifyCode.js' %}"></script>
+{% endblock %}
+
+<!-- https://github.com/arnapou/jqcron -->

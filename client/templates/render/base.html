@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}
+  <title>AngularJS and Django</title>
+  {% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block external_css %}
+  <link rel="stylesheet" href="{% static 'css/library/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/library/toastr.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/library/jqCron.css' %}">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/library/tagify.css' %}">
+  {% endblock %}
+</head>
+{% block body %}
+<body ng-app="apschedulerApp" ng-controller="apschedulerMainApp" ng-cloak>
+  {% block content %}
+  {% endblock %}
+</body>
+{% endblock %}
+{% block external_jsfiles %}
+   <script type="text/javascript" src="{% static 'js/library/angularjs169.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/tagify.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/jQuery3.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/bootstrap3.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/toastr.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/jQuery.tagify.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/jqCron.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/library/jqCron.en.js' %}"></script>
+{% endblock %}
+
+{% block extra_jsfiles %}
+{% endblock %}
+
+{% block globalcontroller %}
+ <script type="text/javascript" src="{% static 'controller/baseController.js' %}"></script>
+{% endblock %}
+
+{% block local_controller %}
+{% endblock %}
+
+</html>
