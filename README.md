@@ -39,7 +39,7 @@
 
 __NOTE__: If Screenshots is Not Possible Below, Then You can Navigate to __projectScreenshots__ Folder 
 
-#### **Developer**
+#### **About Developer**
 
 I am looking for oportunity to work in Open Source Projects and want to do some contribution to Open Source Projects. 
 
